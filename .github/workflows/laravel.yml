@@ -23,7 +23,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/html/laravel
+            cd ${{ github.workspace }}
             git config --global --add safe.directory /var/www/html/laravel
             git pull https://github.com/AshrafSalah1/laravel.git
             php artisan migrate
