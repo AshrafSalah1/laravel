@@ -1,0 +1,28 @@
+name: Laravel Deployment
+
+on:
+  push:
+    branches:
+      - 10.x
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: echo "Building..."
+        
+      - name: Deploy to Ubuntu VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/html/laravel
+            git pull https://github.com/AshrafSalah1/laravel.git
+            php artisan migrate
