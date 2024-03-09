@@ -24,6 +24,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/html/laravel
-            git config --global --add safe.directory /var/www/html/laravel
-            git pull https://github.com/AshrafSalah1/laravel.git
+            git pull origin 10.x
             php artisan migrate
