@@ -25,5 +25,14 @@ jobs:
           script: |
             cd /var/www/html/laravel
             git config --global --add safe.directory /var/www/html/laravel
-            git pull origin 10.x
-            php artisan migrate
+            git fetch origin 10.x
+            # Check for merge conflicts
+            if git merge-base --is-ancestor origin/10.x HEAD; then
+              git pull origin 10.x
+              php artisan migrate
+            else
+              echo "Merge conflicts detected. Please resolve conflicts manually."
+              # You can add additional actions here to notify or handle the conflicts
+              exit 1
+            fi
+
